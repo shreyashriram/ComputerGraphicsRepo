@@ -33,98 +33,12 @@ glm::mat4 model = glm::mat4( 1.0f );
 glm::mat4 view = glm::mat4( 1.0f );
 glm::mat4 projection = glm::mat4( 1.0f );
 
+// TORUS STRUCTURES/VARIABLES
 std::vector <glm::vec3> torus;
 float resolution = 25;
+float R = 0.5;
+float r = 0.25;
 
-GLfloat vertices[] = {
-    -0.5f, -0.5f, -0.5f,
-     0.5f, -0.5f, -0.5f,
-     0.5f,  0.5f, -0.5f,
-     0.5f,  0.5f, -0.5f,
-    -0.5f,  0.5f, -0.5f,
-    -0.5f, -0.5f, -0.5f,
-
-    -0.5f, -0.5f,  0.5f,
-     0.5f, -0.5f,  0.5f,
-     0.5f,  0.5f,  0.5f,
-     0.5f,  0.5f,  0.5f,
-    -0.5f,  0.5f,  0.5f,
-    -0.5f, -0.5f,  0.5f,
-
-    -0.5f,  0.5f,  0.5f,
-    -0.5f,  0.5f, -0.5f,
-    -0.5f, -0.5f, -0.5f,
-    -0.5f, -0.5f, -0.5f,
-    -0.5f, -0.5f,  0.5f,
-    -0.5f,  0.5f,  0.5f,
-
-    0.5f,  0.5f,  0.5f,
-    0.5f,  0.5f, -0.5f,
-    0.5f, -0.5f, -0.5f,
-    0.5f, -0.5f, -0.5f,
-    0.5f, -0.5f,  0.5f,
-    0.5f,  0.5f,  0.5f,
-
-    -0.5f, -0.5f, -0.5f,
-     0.5f, -0.5f, -0.5f,
-     0.5f, -0.5f,  0.5f,
-     0.5f, -0.5f,  0.5f,
-    -0.5f, -0.5f,  0.5f,
-    -0.5f, -0.5f, -0.5f,
-
-    -0.5f,  0.5f, -0.5f,
-     0.5f,  0.5f, -0.5f,
-     0.5f,  0.5f,  0.5f,
-     0.5f,  0.5f,  0.5f,
-    -0.5f,  0.5f,  0.5f,
-    -0.5f,  0.5f, -0.5f,
-
-};
-
-GLfloat colors[] = {
-    1.0f, 0.0f, 0.0f, 1.0f,
-    1.0f, 0.0f, 0.0f, 1.0f,
-    1.0f, 0.0f, 0.0f, 1.0f,
-    1.0f, 0.0f, 0.0f, 1.0f,
-    1.0f, 0.0f, 0.0f, 1.0f,
-    1.0f, 0.0f, 0.0f, 1.0f,
-
-    0.0f, 0.0f, 1.0f, 1.0f,
-    0.0f, 0.0f, 1.0f, 1.0f,
-    0.0f, 0.0f, 1.0f, 1.0f,
-    0.0f, 0.0f, 1.0f, 1.0f,
-    0.0f, 0.0f, 1.0f, 1.0f,
-    0.0f, 0.0f, 1.0f, 1.0f,
-
-    0.0f, 1.0f, 0.0f, 1.0f,
-    0.0f, 1.0f, 0.0f, 1.0f,
-    0.0f, 1.0f, 0.0f, 1.0f,
-    0.0f, 1.0f, 0.0f, 1.0f,
-    0.0f, 1.0f, 0.0f, 1.0f,
-    0.0f, 1.0f, 0.0f, 1.0f,
-
-    1.0f, 0.5f, 0.5f, 1.0f,
-    1.0f, 0.5f, 0.5f, 1.0f,
-    1.0f, 0.5f, 0.5f, 1.0f,
-    1.0f, 0.5f, 0.5f, 1.0f,
-    1.0f, 0.5f, 0.5f, 1.0f,
-    1.0f, 0.5f, 0.5f, 1.0f,
-
-    0.5f, 0.5f, 1.0f, 1.0f,
-    0.5f, 0.5f, 1.0f, 1.0f,
-    0.5f, 0.5f, 1.0f, 1.0f,
-    0.5f, 0.5f, 1.0f, 1.0f,
-    0.5f, 0.5f, 1.0f, 1.0f,
-    0.5f, 0.5f, 1.0f, 1.0f,
-
-    0.0f, 1.0f, 0.0f, 1.0f,
-    0.0f, 1.0f, 0.0f, 1.0f,
-    0.0f, 1.0f, 0.0f, 1.0f,
-    0.0f, 1.0f, 0.0f, 1.0f,
-    0.0f, 1.0f, 0.0f, 1.0f,
-    0.0f, 1.0f, 0.0f, 1.0f
-
-};
 
 void keyboardCallback( GLFWwindow *window, int key, int scancode, int action, int mode ) {
 
@@ -142,32 +56,32 @@ void keyboardCallback( GLFWwindow *window, int key, int scancode, int action, in
             break;
         }
 
-        case GLFW_KEY_D: {
+        case GLFW_KEY_RIGHT: {
             perspRotationY += 5 * perspSensitivity;
             break;
         }
 
-        case GLFW_KEY_A: {
+        case GLFW_KEY_LEFT: {
             perspRotationY -= 5 * perspSensitivity;
             break;
         }
 
-        case GLFW_KEY_W: {
+        case GLFW_KEY_UP: {
             perspRotationX += 5 * perspSensitivity;
             break;
         }
 
-        case GLFW_KEY_S: {
+        case GLFW_KEY_DOWN: {
             perspRotationX -= 5 * perspSensitivity;
             break;
         }
 
-        case GLFW_KEY_E: {
+        case GLFW_KEY_P: {
             perspZoom += 0.03f;
             break;
         }
 
-        case GLFW_KEY_Q: {
+        case GLFW_KEY_L: {
             if ( perspZoom - 0.03f > 0.0f ) {
                 perspZoom -= 0.03f;
             }
@@ -175,17 +89,60 @@ void keyboardCallback( GLFWwindow *window, int key, int scancode, int action, in
             break;
         }
             
-        case GLFW_KEY_UP: {
+        // CHANGE RESOLUTION
+        case GLFW_KEY_Q: {
             resolution += 10;
             
             break;
         }
             
-        case GLFW_KEY_DOWN: {
+        case GLFW_KEY_A: {
             resolution -= 10;
             
             break;
         }
+        
+        // CHANGE tube radius - r
+        case GLFW_KEY_W: {
+            
+            r += 0.02;
+            
+            if (r >= R) {
+                r = R - 0.02;
+            }
+            
+            break;
+        }
+            
+        case GLFW_KEY_S: {
+            r -= 0.02;
+            
+            if (r <= 0) {
+                r = 0.02;
+            }
+            
+            break;
+        }
+            
+        // CHANGE center radius - R
+        case GLFW_KEY_E: {
+            R += 0.02;
+            
+            break;
+        }
+            
+        case GLFW_KEY_D: {
+            
+            R -= 0.02;
+            
+            if (R <= r) {
+                R = r + 0.02;
+            }
+            
+            break;
+        }
+        
+        
 
     }
 }
@@ -223,35 +180,20 @@ void createAxisBuffers( void ) {
     glBindVertexArray( VAO );
 
     glGenBuffers( 1, &VBO[0] );
-
-//    glBindBuffer( GL_ARRAY_BUFFER, VBO[0] );
-//    glBufferData( GL_ARRAY_BUFFER, sizeof( vertices ), vertices, GL_STATIC_DRAW );
-//    glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof( GLfloat ), (GLvoid*)0);
-//    glEnableVertexAttribArray( 0 );
     
     glBindBuffer( GL_ARRAY_BUFFER, VBO[0] );
     glBufferData( GL_ARRAY_BUFFER, torus.size() * sizeof(glm::vec3), &torus[0], GL_STATIC_DRAW );
     glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof( GLfloat ), (GLvoid*)0);
     glEnableVertexAttribArray( 0 );
 
-//    glBindBuffer( GL_ARRAY_BUFFER, VBO[1] );
-//    glBufferData( GL_ARRAY_BUFFER, sizeof( colors ), colors, GL_STATIC_DRAW );
-//    glVertexAttribPointer( 1, 4, GL_FLOAT, GL_FALSE, 4 * sizeof( GLfloat ), (GLvoid*)0);
-//    glEnableVertexAttribArray( 1 );
-
     glBindVertexArray(0);
 
 }
 
 void drawTorus( GLfloat R, GLfloat r, GLint resolution) {
-
-//    std::vector <glm::vec3> torus;
     torus.clear();
-    
-//    int numVertices = pow( resolution+1, 2 );
 
     float angleStep = glm::radians( 360.0f/float(resolution) );
-//    float phiStep = glm::radians( 360.0f/float(resolution*2) );
     
     // MAIN RADIUS
     float theta = 0.0f;
@@ -315,6 +257,7 @@ int main() {
     glfwMakeContextCurrent( window );
     glViewport( 0, 0, screenWidth, screenHeight );
     glEnable( GL_DEPTH_TEST );
+    glEnable( GL_CULL_FACE );
 
     if ( nullptr == window ) {
         std::cout << "Failed to create GLFW window." << std::endl;
@@ -362,7 +305,7 @@ int main() {
         else
             glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 
-        drawTorus(0.5f, 0.25, resolution);
+        drawTorus(R, r, resolution);
         
         glBindVertexArray( VAO );
         
