@@ -24,7 +24,7 @@ GLuint VAO;
 GLuint VBO[1]; // 0 - Vertices, 1 - Color
 
 // Other parameters
-bool drawWireframe = false;
+bool drawWireframe = true;
 
 float perspZoom = 1.0f, perspSensitivity = 1.0f;
 float perspRotationX = 0.0f, perspRotationY = 0.0f;
@@ -229,13 +229,37 @@ void init( void ) {
     std::cout << "OpenGL Version: " << glGetString( GL_VERSION  ) << "\n";
     std::cout << "GLSL Version:   " << glGetString( GL_SHADING_LANGUAGE_VERSION ) << "\n\n";
 
-    glClearColor( 0.2f, 0.3f, 0.3f, 1.0f );
+    glClearColor( 0.0f, 0.0f, 0.0f, 1.0f );
     
     drawTorus(0.5f, 0.25, resolution);
     
     createShaders();
     createAxisBuffers();
-
+    
+    
+    std::cout << "         Interaction Menu   " << std::endl;
+    std::cout << "      ----------------------" << std::endl;
+    std::cout << std::endl;
+    std::cout << "      Q: Increase Resolution" << std::endl;
+    std::cout << "      A: Decrease Resolution" << std::endl;
+    std::cout << std::endl;
+    std::cout << "      W: Increase Tube Radius" << std::endl;
+    std::cout << "      S: Decrease Tube Radius" << std::endl;
+    std::cout << std::endl;
+    std::cout << "      E: Increase Outer Radius" << std::endl;
+    std::cout << "      Q: Decrease Outer Radius" << std::endl;
+    std::cout << std::endl;
+    std::cout << "            ---------       " << std::endl;
+    std::cout << "      P: Zoom In" << std::endl;
+    std::cout << "      L: Zoom Out" << std::endl;
+    std::cout << std::endl;
+    std::cout << "      Rotate with Arrow Keys" << std::endl;
+    std::cout << std::endl;
+    std::cout << "      ↑      ↓      →      ←" << std::endl;
+    std::cout << std::endl;
+    std::cout << "      ----------------------" << std::endl;
+    
+    
 }
 
 int main() {
@@ -294,11 +318,13 @@ int main() {
         GLint modelLoc = glGetUniformLocation( simpleProgram.GetID(), "model" );
         GLint viewLoc = glGetUniformLocation( simpleProgram.GetID(), "view" );
         GLint projLoc = glGetUniformLocation( simpleProgram.GetID(), "projection" );
-
+        GLint objColorLoc = glGetUniformLocation( simpleProgram.GetID(), "objColor" );
+        
         glUniformMatrix4fv( modelLoc, 1, GL_FALSE, glm::value_ptr( model ));
         glUniformMatrix4fv( viewLoc, 1, GL_FALSE, glm::value_ptr( view ));
         glUniformMatrix4fv( projLoc, 1, GL_FALSE, glm::value_ptr( projection ));
-
+        glUniform3f( objColorLoc, 0.0f, 0.0f, 1.0f );
+        
         // Drawing in wireframe?
         if( drawWireframe == true )
             glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
