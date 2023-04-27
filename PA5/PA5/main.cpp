@@ -100,8 +100,6 @@ void mouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
         for (int i = 0; i < 6; i++) {
             dist = distance(a, b, controlPoints[i][0], controlPoints[i][1]);
             if (dist <= 0.02) {
-                std::cout << "point " << i <<std::endl;
-                
                 selectedPoint = i;
                 movePoint = true;
                             
@@ -309,7 +307,20 @@ void init( void ) {
 
     createShaders();
     createAxisBuffers();
-
+    
+    
+    std::cout << "         Interaction Menu   " << std::endl;
+    std::cout << "      ----------------------" << std::endl;
+    std::cout << std::endl;
+    std::cout << "      ↑: Increase Resolution" << std::endl;
+    std::cout << "      ↓: Decrease Resolution" << std::endl;
+    std::cout << std::endl;
+    std::cout << "      B: Toggle Curve Type  " << std::endl;
+    std::cout << std::endl;
+    std::cout << "      Mouse Click & Drag:   " << std::endl;
+    std::cout << "         Move Control Points" << std::endl;
+    std::cout << std::endl;
+    std::cout << "      ----------------------" << std::endl;
 }
 
 int main() {
